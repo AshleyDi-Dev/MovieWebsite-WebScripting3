@@ -1,18 +1,31 @@
-// web/src/components/AddMovieModal.jsx
+// web/src/components/AddMovieModalForm.jsx
 
-import { useState } from "react";
+import { useState } from 'react';
+import { createPortal } from 'react-dom';
+import AddMovieModalForm from './AddMovieModalForm';
 
-function AddMovieModal() {
-    const [showModal, setShowModal] = useState(false);
+function AddMovieModal({onMovieAdded}) {
+	const [showModal, setShowModal] = useState(false);
 
-    return (
-        <div>
-            <button className="button" onClick={() =>
-                setShowModal(true)} >
-                Add Movie
-            </button>
-        </div>
-    );
+	return (
+		<div>
+			<button className='button' onClick={() => setShowModal(true)}>
+				+ Add Movie +
+			</button>
+
+			{showModal &&
+				createPortal(
+					<AddMovieModal
+						onTapeAdded={onTapeAdded}
+						// onClose is a function that will be passed down to set the state to false. This is will remove the modal from the DOM
+						onClose={() => setShowModal(false)}
+					/>,
+					document.body,
+				)}
+		</div>
+	);
 }
 
 export default AddMovieModal;
+
+

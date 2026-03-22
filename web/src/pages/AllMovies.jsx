@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import AddMovieModal from '../components/AddMovieModal';
+import AddMovieModal from '../components/AddMovieModalForm';
 import MovieSubgenresFilter from '../components/MovieSubgenreFilter';
 
 function AllMovies() {
