@@ -7,13 +7,14 @@ function Movie() {
     const { id } = useParams();
 
     const [movieData, setMovieData] = useState({});
+    const [subgenres, setSubgenres] = useState([]);
 
         useEffect(() => {
             fetch(`http://localhost:4000/movies/${id}`)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data);
                 setMovieData(data[0]);
+                setSubgenres(data.map((item) => item.subgenre_name));
             });
         }, []);
 
@@ -30,9 +31,13 @@ function Movie() {
 						<h1
 							className="h2 inline-flex items-center">
 							{" "}
-							{movieData.title} by {movieData.director}
+							{movieData.title}
 						</h1>
-						<p>{movieData.logline}</p>
+                        <h2>by {movieData.director}</h2>
+						<p>{movieData.genres}</p>
+                        <p>{subgenres.join(', ')}</p>
+                        <p>{movieData.logline}</p>
+                        <p>{movieData.year_released} - {movieData.country}</p>
 					</div>
 				</div>
 			</main>
