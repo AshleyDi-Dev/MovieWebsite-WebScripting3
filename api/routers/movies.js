@@ -1,5 +1,4 @@
 const express = require('express');
-const app = express();
 const moviesRouter = express.Router();
 const db = require('../db');
 

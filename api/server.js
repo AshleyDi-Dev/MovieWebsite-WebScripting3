@@ -1,7 +1,13 @@
+// api/server.js
+
 const express = require('express');
-const cors = require('cors');
 const app = express();
+const cors = require('cors');
+const db = require('./db');
 const PORT = 4000;
+
+const subgenresRouter = require('./routers/subgenres');
+const moviesRouter = require('./routers/movies');
 
 const corsOptions = {
     origin: "http://localhost:5173",
@@ -10,19 +16,10 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.use(express.json());
-app.use('/images', express.static('images'));
-
-app.get('/', (req, res) => {
-    res.send("test that the page is connected");
-});
-
-const subgenresRouter = require('./routers/subgenres');
-const moviesRouter = require('./routers/movies');
-
+app.use(express.json()); // CHECK
+app.use('/images', express.static('images')); // CHECK
 app.use('/subgenres', subgenresRouter);
 app.use('/movies', moviesRouter);
-
 
 app.listen(PORT, () => {
     console.log(`Server is running at http://localhost:${PORT}/`);
