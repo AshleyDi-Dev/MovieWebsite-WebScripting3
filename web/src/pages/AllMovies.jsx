@@ -37,7 +37,7 @@ function AllMovies() {
                                             <p>{movie.logline}</p>
                                             <h4>{movie.genres}</h4>
                                             <div className="movie-actions">
-                                                <Link to={`/movies/${movie.id}`} className='button small'>
+                                                <Link to={`/movie/${movie.id}`} className='button small'>
                                                 View
                                                 </Link>
                                             </div>
