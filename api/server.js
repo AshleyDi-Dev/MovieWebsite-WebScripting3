@@ -2,9 +2,9 @@ const express = require('express');
 const app = express();
 const PORT = 4000;
 
-// app.get('/', (req, res) => {
-//     res.send("hello world");
-// });
+app.get('/', (req, res) => {
+    res.send("test that the page is connected");
+});
 
 const subgenresRouter = require('./routers/subgenres');
 const moviesRouter = require('./routers/movies');

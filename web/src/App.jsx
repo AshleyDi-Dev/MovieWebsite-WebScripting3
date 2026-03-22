@@ -1,5 +1,9 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import {} from ''
+
+import Header from "./components/Header";
+import AllMovies from "./pages/AllMovies";
+import Movie from "./pages/Movie";
+import Footer from "./components/Footer";
 
 function App() {
 	return (
@@ -11,7 +15,7 @@ function App() {
 					<Route path='/subgenres' element={<Navigate to='/' />} />
 					<Route path='/movie/:id' element={<Movie />} />
 				</Routes>
-				<Footer />
+				<Footer/>
 			</div>
 		</BrowserRouter>
 	);
