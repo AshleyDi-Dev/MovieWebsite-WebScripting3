@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import AllMovies from "./pages/AllMovies";
 import Movie from "./pages/Movie";
 import Footer from "./components/Footer";
+import "./App.css";
 
 function App() {
 	return (
