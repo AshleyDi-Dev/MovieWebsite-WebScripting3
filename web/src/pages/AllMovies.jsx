@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 function AllMovies() {
     
@@ -33,6 +34,13 @@ function AllMovies() {
                                         />
                                         <div className='card-content'>
                                             <h3>{movie.title}</h3>
+                                            <p>{movie.logline}</p>
+                                            <h4>{movie.genres}</h4>
+                                            <div className="movie-actions">
+                                                <Link to={`/movies/${movie.id}`} className='button small'>
+                                                View
+                                                </Link>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
