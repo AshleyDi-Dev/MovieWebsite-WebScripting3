@@ -3,8 +3,9 @@
 // Import Dependencies
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import AddMovieModal from '../components/AddMovieModalForm';
 import MovieSubgenresFilter from '../components/MovieSubgenreFilter';
+import AddMovieModal from '../components/AddMovieModalForm';
+import DeleteMovieModal from '../components/DeleteMovieModal';
 
 function AllMovies() {
     
@@ -86,6 +87,10 @@ function AllMovies() {
                                                 <Link to={`/movie/${movie.id}`} className='button small'>
                                                 View
                                                 </Link>
+                                                <DeleteMovieModal
+                                                    movie={movie}
+                                                    onMovieDeleted={getAllMovies}
+                                                />
                                             </div>
                                         </div>
                                     </div>
