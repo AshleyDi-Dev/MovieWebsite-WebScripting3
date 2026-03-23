@@ -1,6 +1,7 @@
 // web/src/components/Header.jsx
 
 function Header() {
+
     return (
         <header className='header'>
             <div className='container main-nav'> 
@@ -10,4 +11,5 @@ function Header() {
     )
 }
 
+// Exported component 
 export default Header;

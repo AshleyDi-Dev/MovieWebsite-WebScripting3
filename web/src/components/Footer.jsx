@@ -1,3 +1,5 @@
+// web/src/components/Footer.jsx
+
 function Footer () {
   return (
     <footer className='footer-bg'>
@@ -9,4 +11,5 @@ function Footer () {
   );
 }
 
+// Exported component 
 export default Footer;
