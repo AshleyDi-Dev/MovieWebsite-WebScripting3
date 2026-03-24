@@ -8,7 +8,10 @@ const db = require('../db');                            // Imports the database 
 // GET all subgenres
 subgenresRouter.get('/', (req, res) => {
     // Gives SQL instructions on what to get - Select all from subgenres
-    const sql = 'SELECT * FROM subgenres';
+    const sql = `
+        SELECT subgenres.*, movie_subgenres.movie_id 
+        FROM subgenres 
+        JOIN movie_subgenres ON subgenres.id = movie_subgenres.subgenre_id`;
     // Queries the SQL database
     db.query(sql, (err, results) => {
         // If error, return the following status and message

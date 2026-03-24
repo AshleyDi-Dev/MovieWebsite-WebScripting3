@@ -30,7 +30,8 @@ moviesRouter.get('/:id', (req, res) => {
     const sql = `
         SELECT movies.*, subgenres.subgenre_name 
         FROM movies 
-        JOIN subgenres ON movies.id = subgenres.movie_id 
+        JOIN movie_subgenres ON movies.id = movie_subgenres.movie_id
+        JOIN subgenres ON subgenres.id = movie_subgenres.subgenre_id
         WHERE movies.id = ?`;
 
     // Queries the SQL database
@@ -92,23 +93,31 @@ moviesRouter.put('/:id', (req, res) => {
     });
 });
 
-// DELETE
+// DELETE - Remove a movie by ID
 moviesRouter.delete('/:id', (req, res) => {
     // Extract ID from the URL
     const { id } = req.params;
 
-    // Query to delete a movie. Each ? is a placeholder for the values above
-    const sql = 'DELETE FROM movies WHERE id = ?';
-
-    // Queries the SQL database
-    db.query(sql, [id], (err, results) => {
-        // If error, return the following status and message
+    // @NOTE: Used AI to help with this part
+    // Step 1 - Delete the links between this movie and its subgenres
+    // This does NOT delete the subgenres themselves, just the connections
+    const deleteLinksSql = 'DELETE FROM movie_subgenres WHERE movie_id = ?';
+    db.query(deleteLinksSql, [id], (err) => {
         if (err) {
             console.error(err);
-            res.status(500).send('An error occurred');
+            return res.status(500).send('An error occurred');
         }
-        // If no error, return the results
-        res.status(204).send();
+        // Step 2 - Now safe to delete the movie itself
+        // The ? is a safe placeholder for the ID to prevent SQL injection
+        const deleteMovieSql = 'DELETE FROM movies WHERE id = ?';
+        db.query(deleteMovieSql, [id], (err) => {
+            if (err) {
+                console.error(err);
+                return res.status(500).send('An error occurred');
+            }
+            // Return a 204 (No Content) status to confirm deletion
+            res.status(204).send();
+        });
     });
 });
 

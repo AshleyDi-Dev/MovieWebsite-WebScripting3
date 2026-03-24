@@ -13,6 +13,7 @@ function DeleteMovieModalContent( {movie, onClose, onMovieDeleted }) {
             .then((res) => {
                 onMovieDeleted(); // Tell the parent component the movie was deleted
                 onClose();        // Close the modal
+                alert(`${movie.title} has been deleted!`);
             })
     };
 
