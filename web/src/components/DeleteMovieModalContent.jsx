@@ -1,7 +1,5 @@
 // web/src/components/DeleteMovieModalContent.jsx
 
-// @NOTE: Add in here a CONFIRMATION that the movie was deleted.
-
 function DeleteMovieModalContent( {movie, onClose, onMovieDeleted }) {
     // Handles the delete request when the form is submitted
     const handleDeleteMovie = (event) => {

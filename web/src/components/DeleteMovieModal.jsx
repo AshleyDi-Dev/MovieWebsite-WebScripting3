@@ -1,7 +1,5 @@
 // web/src/components/DeleteMovieModal.jsx
 
-// @NOTE: TRY THIS - NOT SURE IF ITS RIGHT
-
 // Import dependencies
 import { useState } from 'react';
 import { createPortal } from 'react-dom';

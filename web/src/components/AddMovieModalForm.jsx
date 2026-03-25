@@ -41,7 +41,6 @@ function AddMovieModalForm({onClose, onMovieAdded}) {
         });
 
         const result = await response.json();
-        console.log("Result: ", result);
 
         // Notify the parent component and close the modal
         onMovieAdded();

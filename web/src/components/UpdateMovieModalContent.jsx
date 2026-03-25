@@ -35,7 +35,6 @@ function UpdateMovieModalContent({ movie, onClose, onMovieUpdated }) {
         });
 
         const result = await response.json();
-        console.log("Result: ", result);
 
         onMovieUpdated();
         onClose();

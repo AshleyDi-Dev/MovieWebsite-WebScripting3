@@ -19,8 +19,6 @@ db.connect((err) => {
         console.error('Database connection failed:', err);
         return;
     }
-    // If successfully connects, show this message
-    console.log('Connected to MySQL database');
 });
 
 // Export
