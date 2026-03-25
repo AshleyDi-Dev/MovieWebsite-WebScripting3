@@ -4,7 +4,7 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MovieSubgenresFilter from '../components/MovieSubgenreFilter';
-import AddMovieModal from '../components/AddMovieModalForm';
+import AddMovieModal from '../components/AddMovieModal';
 import DeleteMovieModal from '../components/DeleteMovieModal';
 
 function AllMovies() {
@@ -65,6 +65,7 @@ function AllMovies() {
                     {/* Filter component
                     When the filter is changed, it runs the handleFilterChange function */}
                     <MovieSubgenresFilter onFilterChange={handleFilterChange}/>
+                    <AddMovieModal onMovieAdded={getAllMovies}/>
                 </div>
                 <div className="col-9">
                     <div className="grid-container">

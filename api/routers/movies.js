@@ -4,6 +4,7 @@
 const express = require('express');                     // Needed to run express
 const moviesRouter = express.Router();               // Creates a router for /movies routes
 const db = require('../db');                            // Imports the database connection
+const upload = require('../storage');
 
 // GET - All
 moviesRouter.get('/', (req, res) => {
@@ -26,12 +27,13 @@ moviesRouter.get('/:id', (req, res) => {
     // Extract ID from the URL
     const { id } =req.params;
 
-    // Gives SQL instrctions on what to get - All columns from the movie table plus the subgenre_name column from the subgenre table. Connect the tables where the movie's ID matches the movie_id in the subgenre table. Return the movies that matches the ID in the URL
+    // Used AI to help with LEFT JOIN instead of JOIN so that movies without subgenres still return their data. 
+    // A regular JOIN only returns rows where both tables have matching data, so movies with no subgenres would return nothing.
     const sql = `
         SELECT movies.*, subgenres.subgenre_name 
         FROM movies 
-        JOIN movie_subgenres ON movies.id = movie_subgenres.movie_id
-        JOIN subgenres ON subgenres.id = movie_subgenres.subgenre_id
+        LEFT JOIN movie_subgenres ON movies.id = movie_subgenres.movie_id
+        LEFT JOIN subgenres ON subgenres.id = movie_subgenres.subgenre_id
         WHERE movies.id = ?`;
 
     // Queries the SQL database
@@ -47,26 +49,38 @@ moviesRouter.get('/:id', (req, res) => {
 });
 
 // CREATE
-moviesRouter.post('/', (req, res) => {
+moviesRouter.post('/', upload.single("image"), (req, res) => {
     // Extract the movie fields from the request body
-    const { id, title, year_released, genres, director, logline, country, image_filename } = req.body;
+    const { title, director, year_released, genres, logline, country } = req.body;
 
-    // Query to insert a new movie. Each ? is a placeholder for the values above
-    const sql = `
-        INSERT INTO movies (id, title, year_released, genres, director, logline, country, image_filename)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    // Start with the required fields
+    let sql = 'INSERT INTO movies (title, director, year_released';
+    const queryParams = [title, director, year_released];
+
+    // Add optional text fields if they were provided
+    if (genres) { sql += ', genres'; queryParams.push(genres); }
+    if (logline) { sql += ', logline'; queryParams.push(logline); }
+    if (country) { sql += ', country'; queryParams.push(country); }
+
+    // Add image field if a file was uploaded
+    if (req.file) {
+        sql += ', image_filename';
+        queryParams.push(req.file.filename);
+    }
+
+    // Close the query
+    sql += `) VALUES (${queryParams.map(() => '?').join(', ')})`;
 
     // Queries the SQL database
-    db.query(sql, [id, title, year_released, genres, director, logline, country, image_filename], (err, results) => {
-        // If error, return the following status and message
+    db.query(sql, queryParams, (err, results) => {
         if (err) {
             console.error(err);
-            res.status(500).send('An error occurred');
+            return res.status(500).send('An error occurred');
         }
-        // If no error, return the results
         res.status(201).json(results);
     });
 });
+
 
 // UPDATE
 moviesRouter.put('/:id', (req, res) => {
