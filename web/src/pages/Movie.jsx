@@ -41,26 +41,27 @@ function Movie() {
 					</div>
                     {/* Right column: movie details */}
 					<div className="col-8">
-                        {/* Back button that navigates to all movies at "/" */}
-						<Link to='/' className="button small">
-							&lt; All Movies
-						</Link>
                         {/* Movie title as an H1 element */}
 						<h1
-							className="h2 inline-flex items-center">
+							className="h2 inline-flex items-center movie-page-title">
 							{" "}
 							{movieData.title}
 						</h1>
                         {/* Director as an H2 element */}
-                        <h2>by {movieData.director}</h2>
-                        {/* Genere as a p element */}
-						<p>{movieData.genres}</p>
-                        {/* Subgenere array joined into a comma seperated string */}
-                        <p>{subgenres.join(', ')}</p>
-                        {/* Logline as a p element */}
-                        <p>{movieData.logline}</p>
-                        {/* Year Released + Country as p elements */}
-                        <p>{movieData.year_released} - {movieData.country}</p>
+                        <h2 className="movie-page-director">by {movieData.director}</h2>
+                        <div className="movie-page-content">
+                            {/* Genere as a p element */}
+                            {/* Subgenere array joined into a comma seperated string */}
+                            <p><strong>Main Genre:</strong> {movieData.genres} | <strong>Subgenres:</strong> {subgenres.join(', ')}</p>
+                            {/* Logline as a p element */}
+                            <p>{movieData.logline}</p>
+                            {/* Year Released + Country as p elements */}
+                            <p>{movieData.year_released} - {movieData.country}</p>
+                        </div>
+                        {/* Back button that navigates to all movies at "/" */}
+						<Link to='/' className="button small all-movies">
+							&lt; All Movies
+						</Link>
 					</div>
 				</div>
 			</main>

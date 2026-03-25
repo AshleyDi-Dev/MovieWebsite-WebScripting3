@@ -11,7 +11,7 @@ function AddMovieModal({onMovieAdded}) {
 	return (
 		<div>
 			<button className='button' onClick={() => setShowModal(true)}>
-				+ Add Movie +
+				+ New Movie
 			</button>
 
 			{showModal &&

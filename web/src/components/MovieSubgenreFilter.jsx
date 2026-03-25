@@ -33,7 +33,8 @@ const MovieSubgenreFilter = ({ onFilterChange }) => {
         <div className='filters-container'>
             {/* When the form is submitted, run handleSubmit */}
             <form onSubmit={handleSubmit}>
-                <h4>Subgenre</h4>
+                <h4>Subgenres</h4>
+                <p className="filter-text">Looking for a specific type of horror? Explore these horror subgenres! </p>
                 <div className='filter-section'>
                     {/* A form containing all filters as checkbox items.
                     When clicked, run handleCheckbox*/}
@@ -82,7 +83,7 @@ const MovieSubgenreFilter = ({ onFilterChange }) => {
                         Creature Feature
                     </label>
                     {/* Submit button */}
-                    <div style={{ display: 'flex', justifyContent: 'flex-end'}}>
+                    <div className="filter-submit" style={{ display: 'flex', justifyContent: 'flex-end'}}>
                         <input type="submit" value="Apply" className='button' />
                     </div>
                 </div>

@@ -59,9 +59,8 @@ function AllMovies() {
     // What is displayed on the screen
     return (
         <main className='container'>
-            <h2>All Horror Movies</h2>
             <div className="grid-container">
-                <div className='col-3'>
+                <div className='col-3' style={{paddingTop: '3.5rem'}}>
 					<h3>Filters</h3>
                     {/* Filter component
                     When the filter is changed, it runs the handleFilterChange function */}
@@ -69,6 +68,7 @@ function AllMovies() {
                     <AddMovieModal onMovieAdded={getAllMovies}/>
                 </div>
                 <div className="col-9">
+                    <h2 className='home-title'>All Horror Movies</h2>
                     <div className="grid-container">
                         {/* Create a card for each movie in the filtered list */}
                         {filtered.map((movie) => {
