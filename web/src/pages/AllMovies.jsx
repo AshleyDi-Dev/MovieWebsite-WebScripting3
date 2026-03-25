@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import MovieSubgenresFilter from '../components/MovieSubgenreFilter';
 import AddMovieModal from '../components/AddMovieModal';
+import UpdateMovieModal from '../components/UpdateMovieModal';
 import DeleteMovieModal from '../components/DeleteMovieModal';
 
 function AllMovies() {
@@ -88,6 +89,10 @@ function AllMovies() {
                                                 <Link to={`/movie/${movie.id}`} className='button small'>
                                                 View
                                                 </Link>
+                                                <UpdateMovieModal 
+                                                    movie={movie}
+                                                    onMovieUpdated={getAllMovies}
+                                                />
                                                 <DeleteMovieModal
                                                     movie={movie}
                                                     onMovieDeleted={getAllMovies}

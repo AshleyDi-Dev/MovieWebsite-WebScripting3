@@ -83,20 +83,29 @@ moviesRouter.post('/', upload.single("image"), (req, res) => {
 
 
 // UPDATE
-moviesRouter.put('/:id', (req, res) => {
+moviesRouter.put('/:id', upload.single("image"), (req, res) => {
     // Extract ID from the URL
     const { id } = req.params;
     // Extract the updated movie fields from the request body
-    const { title, year_released, genres, director, logline, country, image_filename } = req.body;
+    const { title, year_released, genres, director, logline, country } = req.body;
 
-    // Query to update a movie. Each ? is a placeholder for the values above
-    const sql = `
+    // Start with the required fields
+    let sql = `
         UPDATE movies 
-        SET title = ?, year_released = ?, genres = ?, director = ?, logline = ?, country = ?, image_filename = ?
-        WHERE id = ?`;
+        SET title = ?, year_released = ?, genres = ?, director = ?, logline = ?, country = ?`;
+    const queryParams = [title, year_released, genres, director, logline, country];
+
+    // Only update image if a new one is uploaded
+    if (req.file) {
+        sql += `, image_filename = ?`;
+        queryParams.push(req.file.filename);
+    }
+
+    sql += ` WHERE id = ?`;
+    queryParams.push(id);
 
     // Queries the SQL database
-    db.query(sql, [title, year_released, genres, director, logline, country, image_filename, id], (err, results) => {
+    db.query(sql, queryParams, (err, results) => {
         // If error, return the following status and message
         if (err) {
             console.error(err);
